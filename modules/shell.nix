@@ -1,7 +1,9 @@
 { lib, pkgs, config, ... }:
-let cfg = config.shared.shell;
+let
+  cfg = config.hyprvibe.shell;
+  inherit (config.hyprvibe.user) username;
 in {
-  options.shared.shell = {
+  options.hyprvibe.shell = {
     enable = lib.mkEnableOption "Fish + Oh My Posh + Atuin basics";
     kittyAsDefault = lib.mkEnableOption "Set kitty as default terminal and env";
     ohMyPoshDefault = lib.mkOption {
@@ -16,25 +18,25 @@ in {
     environment.systemPackages = [ pkgs.oh-my-posh ];
 
     system.activationScripts.shell = lib.mkAfter ''
-      mkdir -p /home/chrisf/.config/fish/conf.d
-      cat > /home/chrisf/.config/fish/conf.d/oh-my-posh.fish << 'EOF'
+      mkdir -p /home/${username}/.config/fish/conf.d
+      cat > /home/${username}/.config/fish/conf.d/oh-my-posh.fish << 'EOF'
       if command -q oh-my-posh
         oh-my-posh init fish --config ~/.config/oh-my-posh/config.json | source
       end
       EOF
       # Ensure ~/.local/bin is on PATH
-      cat > /home/chrisf/.config/fish/conf.d/local-bin.fish << 'EOF'
+      cat > /home/${username}/.config/fish/conf.d/local-bin.fish << 'EOF'
       if test -d "$HOME/.local/bin"
         fish_add_path "$HOME/.local/bin"
       end
       EOF
-      mkdir -p /home/chrisf/.config/oh-my-posh
+      mkdir -p /home/${username}/.config/oh-my-posh
       # Only create default config if no config.json exists (preserve user configs)
-      if [ ! -f /home/chrisf/.config/oh-my-posh/config.json ]; then
-        echo '${cfg.ohMyPoshDefault}' > /home/chrisf/.config/oh-my-posh/config-default.json
-        cp /home/chrisf/.config/oh-my-posh/config-default.json /home/chrisf/.config/oh-my-posh/config.json
+      if [ ! -f /home/${username}/.config/oh-my-posh/config.json ]; then
+        echo '${cfg.ohMyPoshDefault}' > /home/${username}/.config/oh-my-posh/config-default.json
+        cp /home/${username}/.config/oh-my-posh/config-default.json /home/${username}/.config/oh-my-posh/config.json
       fi
-      chown -R chrisf:users /home/chrisf/.config/fish /home/chrisf/.config/oh-my-posh
+      chown -R ${username}:users /home/${username}/.config/fish /home/${username}/.config/oh-my-posh
     '';
 
     environment.sessionVariables = lib.mkIf cfg.kittyAsDefault {

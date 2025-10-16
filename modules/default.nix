@@ -1,12 +1,13 @@
 { ... }:
 {
   imports = [
-    ./packages.nix
     ./desktop.nix
     ./hyprland.nix
-    ./waybar.nix
-    ./shell.nix
+    ./packages.nix
     ./services.nix
+    ./shell.nix
+    ./user.nix
+    ./waybar.nix
   ];
 }
 

@@ -17,14 +17,15 @@
     # Formatter (optional)
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
+    # NixOS modules that can be referenced by importing this flake
     nixosModules = {
-      shared = import ./modules/shared;
-      shared-packages = import ./modules/shared/packages.nix;
-      shared-desktop = import ./modules/shared/desktop.nix;
-      shared-hyprland = import ./modules/shared/hyprland.nix;
-      shared-waybar = import ./modules/shared/waybar.nix;
-      shared-shell = import ./modules/shared/shell.nix;
-      shared-services = import ./modules/shared/services.nix;
+      default = import ./modules;
+      packages = import ./modules/packages.nix;
+      desktop = import ./modules/desktop.nix;
+      hyprland = import ./modules/hyprland.nix;
+      waybar = import ./modules/waybar.nix;
+      shell = import ./modules/shell.nix;
+      services = import ./modules/services.nix;
     };
 
     nixosConfigurations = {
