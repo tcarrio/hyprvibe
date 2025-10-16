@@ -29,7 +29,7 @@ in {
       mkdir -p /home/${username}/.config/hypr
       # Remove existing symlinks/files if they exist
       rm -f /home/${username}/.config/hypr/hyprland-base.conf
-      ln -sf ${../../configs/hyprland-base.conf} /home/${username}/.config/hypr/hyprland-base.conf
+      ln -sf ${../configs/hyprland-base.conf} /home/${username}/.config/hypr/hyprland-base.conf
       ${lib.optionalString (cfg.monitorsFile != null) ''
         rm -f /home/${username}/.config/hypr/$(basename ${cfg.monitorsFile})
         ln -sf ${cfg.monitorsFile} /home/${username}/.config/hypr/$(basename ${cfg.monitorsFile})

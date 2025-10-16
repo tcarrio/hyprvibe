@@ -289,7 +289,7 @@ in
   };
   shared.hyprland.enable = true;
   # Provide per-host monitors and wallpaper paths to shared module
-  shared.hyprland.monitorsFile = ../../configs/hyprland-monitors-rvbee.conf;
+  shared.hyprland.monitorsFile = ../configs/hyprland-monitors-rvbee.conf;
   shared.waybar.enable = true;
   shared.waybar.configPath = ./waybar.json;
   shared.waybar.stylePath = ./waybar.css;
@@ -560,8 +560,8 @@ in
   system.activationScripts.copyHyprlandConfig = ''
     mkdir -p /home/chrisf/.config/hypr
     cp ${./hyprland.conf} /home/chrisf/.config/hypr/hyprland.conf
-    cp ${../../configs/hyprland-base.conf} /home/chrisf/.config/hypr/hyprland-base.conf
-    cp ${../../configs/hyprland-monitors-rvbee.conf} /home/chrisf/.config/hypr/hyprland-monitors-rvbee.conf
+    cp ${../configs/hyprland-base.conf} /home/chrisf/.config/hypr/hyprland-base.conf
+    cp ${../configs/hyprland-monitors-rvbee.conf} /home/chrisf/.config/hypr/hyprland-monitors-rvbee.conf
     # Render wallpaper path into hyprpaper/hyprlock configs
     ${pkgs.gnused}/bin/sed "s#__WALLPAPER__#${wallpaperPath}#g" ${./hyprpaper.conf} > /home/chrisf/.config/hypr/hyprpaper.conf
     ${pkgs.gnused}/bin/sed "s#__WALLPAPER__#${wallpaperPath}#g" ${./hyprlock.conf} > /home/chrisf/.config/hypr/hyprlock.conf
